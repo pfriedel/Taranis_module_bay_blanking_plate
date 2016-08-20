@@ -1,6 +1,16 @@
 int_width=43.9;
 int_height=59.5;
 int_depth = 19;
+
+mnt1_x=-(int_width/2)+(8.5);
+mnt1_y=(int_height/2)-(20.1);
+
+mnt2_x=(int_width/2)-(4.4);
+mnt2_y=-(int_height/2)+(7.7);
+
+mnt3_x=(int_width/2)-(14.1);
+mnt3_y=(int_height/2)-(6.5);
+
 rotate([180,0,0]) {
 difference() {
   union() {
@@ -14,28 +24,28 @@ difference() {
   }
   translate([17,20.75,int_depth]) { cube([8, 15, 8], true); } // connector cutout
 
-  // right hand pinholes
+  // right hand pinholes (box top mounting screws)
   translate([(int_width/2)-2, (int_height/2)-2,3]) { cylinder(h=5, d=1.8, $fn=10, center=true); }
   translate([(int_width/2)-2, -(int_height/2)+2,3]) { cylinder(h=5, d=1.8, $fn=10, center=true); }
 
-  // left hand pinholes
+  // left hand pinholes (box top mounting screws)
   translate([(-int_width/2)+2, (int_height/2)-2,3]) { cylinder(h=5, d=1.8, $fn=10, center=true); }
   translate([-(int_width/2)+2,-(int_height/2)+2,3]) { cylinder(h=5, d=1.8, $fn=10, center=true); }
 
-  translate([-(int_width/2)+(8.5), (int_height/2)-(20.1), (int_depth)]) { cylinder(d=2.1, h=10, $fn=100, center=true); } // board mount drill out
-  translate([-(int_width/2)+(8.5), (int_height/2)-(20.1), (int_depth)])   { cylinder(d=5, h=3, $fn=100, center=true); } // board mount screwhead
+  translate([mnt1_x, mnt1_y, int_depth]) { cylinder(d=2.1, h=10, $fn=100, center=true); } // board mount drill out
+  translate([mnt1_x, mnt1_y, int_depth]) { cylinder(d=5, h=3, $fn=100, center=true); } // board mount screwhead
 
-  translate([(int_width/2)-(4.4), -(int_height/2)+(7.7), (int_depth)]) { cylinder(d=2.1, h=10, $fn=100, center=true); } // board mount drill out
-  translate([(int_width/2)-(4.4), -(int_height/2)+(7.7), (int_depth)]) { cylinder(d=5, h=3, $fn=100, center=true); } // board mount screw hole
+  translate([mnt2_x, mnt2_y, int_depth]) { cylinder(d=2.1, h=10, $fn=100, center=true); } // board mount drill out
+  translate([mnt2_x, mnt2_y, int_depth]) { cylinder(d=5, h=3, $fn=100, center=true); } // board mount screw hole
 
-  translate([(int_width/2)-(14.1), (int_height/2)-(6.5), (int_depth)]) { cylinder(d=2.1, h=10, $fn=100, center=true); } // board mount drill out
-  translate([(int_width/2)-(14.1), (int_height/2)-(6.5), (int_depth)]) { cylinder(d=5, h=3, $fn=100, center=true); } // board mount screw hole
+  translate([mnt3_x, mnt3_y, int_depth]) { cylinder(d=2.1, h=10, $fn=100, center=true); } // board mount drill out
+  translate([mnt3_x, mnt3_y, int_depth]) { cylinder(d=5, h=3, $fn=100, center=true); } // board mount screw hole
 
 }
 
 
 // was 9, 19.6 - too close to pin cutout
-translate([-(int_width/2)+(8.5), (int_height/2)-(20.1), (19-2.5)]) { // left board mount
+translate([mnt1_x, mnt1_y, (int_depth-2.5)]) { // left board mount
   difference() {
     cylinder(d1=5, d2=6, h=2 , $fn=8, center=true); 
     cylinder(d=2.1, h=5, $fn=100, center=true); 
@@ -43,14 +53,14 @@ translate([-(int_width/2)+(8.5), (int_height/2)-(20.1), (19-2.5)]) { // left boa
 }
 
 // was 4.9,7.7, too far left
-translate([(int_width/2)-(4.4), -(int_height/2)+(7.7), (19-2.5)]) { // top right board mount
+translate([mnt2_x, mnt2_y, (int_depth-2.5)]) { // top right board mount
   difference() {
     cylinder(d=5, d2=6, h=2, $fn=8, center=true); 
     cylinder(d=2.1, h=20, $fn=100, center=true); 
   }
 }
 
-translate([(int_width/2)-(14.1), (int_height/2)-(6.5), (19-2.5)]) { // lower right board mount
+translate([mnt3_x, mnt3_y, (int_depth-2.5)]) { // lower right board mount
   difference() {
     cylinder(d=5, d2=6, h=2, $fn=8, center=true); 
     cylinder(d=2.1, h=5, $fn=100, center=true); 
